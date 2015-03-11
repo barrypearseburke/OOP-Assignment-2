@@ -31,12 +31,18 @@ class Building:
 class Customer:
     def __init__(self,floor):
         #todo set customer source and destination
-        #todo errorcheck so source !=des
+        #todo errorcheck so source !=source
         self.Source = random.randint(0,floor)
         self.destination =random.randint(0,floor)
+        #this checks to see if source == destination.
+        ##  if is, places customer the floor up, unless the next floor is a higher number than there are floors
+        #then places a floor below source.
+        if self.Source == self.destination:
+            self.destination +=1
+        if self.destination > floor:
+            self.destination -=2
 
-
-
+        #todo , better error check as this wont work for small buildings
 class Elevator:
     def __init__(self):
         self.location =0
