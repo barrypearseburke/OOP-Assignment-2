@@ -1,14 +1,19 @@
 __author__ = 'Barry'
 import random
 import string
+import winsound
 
 """ OOP -Assignement2
     Autor = Barry Burke
     Student No = C13427078
     Date Started = 26/2/15
     Name of Assignment = Elevator Simulator
+     """
+##############################################################################################
+#       PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.  #
+##############################################################################################
 
- """
+#todo play elevator music when lift opens
 #Right so 3 classes
 #building  Elevator  and customer
 #todo no:1 make 3 classes called building , a customer and elevator and init
@@ -45,8 +50,8 @@ class Elevator:
     def Elevatormainloop(self):
         #check to see are their people in the list
 
-        if len(self.customers_inside_elevators) =0:
-
+        if len(self.customers_inside_elevators) == 0:
+            pass
             #move on to see are the customers waiting to get on at this floor.
         if len(self.customers_inside_elevators) > 0:
             #call fxn to search through the list and see does anybody want to get out at this floor.
@@ -62,10 +67,13 @@ class Elevator:
 
 def main():
     print("Out of order, Travel at ones own risk")
+
     #main will be used to pass vars to classes
     No_of_floors =int(input("How many floors are in the building"))
     No_of_Customers =int(input("How many Customers are in the building"))
 
+    #this code plays elevator music in the background of the project
+    winsound.PlaySound("Elevator Music.wav",winsound.SND_ASYNC)
     x=Building(No_of_floors,No_of_Customers)
 
 
