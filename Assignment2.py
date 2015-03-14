@@ -25,7 +25,7 @@ class Building:
         #create an elevator
             AElevator = Elevator(self.floors,self.customers_waiting,self.customers_served)
     # def __repr__(self):
-    #     #this will print out building with elevator
+    #     #this will print out building with elevator..
     #     pass
 
 
