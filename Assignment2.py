@@ -9,16 +9,18 @@ import winsound
     Date Started = 26/2/15
     Name of Assignment = Elevator Simulator
      """
-##############################################################################################
-#       PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.  #
-##############################################################################################
+#################################################################################################
+#      PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.     #
+#################################################################################################
 
 #todo play elevator music when lift opens
 #Right so 3 classes
 #building  Elevator  and customer
 #todo no:1 make 3 classes called building , a customer and elevator and init
+#todo if time; have a assign a weight to each person. and set a max weight to the lift. refuse customers if there are too many people in the lift
 
 class Building:
+# class recives the amount of floors in the building and the amount of customers
     def __init__(self,floors,no_of_customers):
         self.floors = floors
         self.no_of_customers = no_of_customers
@@ -33,35 +35,42 @@ class Building:
     #     #this will print out building with elevator..
     #     pass
 
-
-class Customer:
-    def __init__(self,floor):
-
-        while self.Source == self.destination:
-            self.Source = random.randint(0,floor)
-            self.destination =random.randint(0,floor)
-
-
 class Elevator:
-    def __init__(self,floors):
+    def __init__(self,floors,customers_waiting,customers_served):
         self.location =0
         self.customers_inside_elevators=[]
+        self.customers_waiting =customers_waiting
+        self.customers_served=customers_served
+
 
     def Elevatormainloop(self):
         #check to see are their people in the list
 
-        if len(self.customers_inside_elevators) == 0:
-            pass
+
+        if len(self.customers_inside_elevators) == 0:#There is nobody in the lift
+            pass# pass for now. will go to check customers list
             #move on to see are the customers waiting to get on at this floor.
-        if len(self.customers_inside_elevators) > 0:
+        elif len(self.customers_inside_elevators) > 0:
             #call fxn to search through the list and see does anybody want to get out at this floor.
             pass
 
     def checkElevator(self):
-        for customer in self.customers_inside_elevators:
-            if customer.destination == self.location:
+        for customer in self.customers_inside_elevators: #for every customer in the lift.
+            if customer.destination == self.location: #ask them do they want to get out.
                 #move customer in customers served.
-                self.customers_served
+                self.customers_served.append(customer)
+                self.customers_inside_elevators.remove(customer)
+
+
+
+class Customer:
+    def __init__(self,floor):
+        self.Source = random.randint(0,floor)
+        self.destination =random.randint(0,floor)
+        while self.Source == self.destination:
+            self.Source = random.randint(0,floor)
+            self.destination =random.randint(0,floor)
+
 
 
 
@@ -72,9 +81,25 @@ def main():
     No_of_floors =int(input("How many floors are in the building"))
     No_of_Customers =int(input("How many Customers are in the building"))
 
-    #this code plays elevator music in the background of the project
-    winsound.PlaySound("Elevator Music.wav",winsound.SND_ASYNC)
-    x=Building(No_of_floors,No_of_Customers)
+
+    Elevatormusic(1) #1 turns music on
+
+    Building(No_of_floors,No_of_Customers) #creates a building
+
+
+
+#defines a fxn that will turn on or off the music
+def Elevatormusic(onoff): #pass 1 for turn music on , 0 for off
+#this code plays elevator music in the background of the project
+    if onoff ==1:
+        try:
+            winsound.PlaySound("Elevator Music.wav",winsound.SND_ASYNC) #turns music on
+        except e as Error:
+            print(e)
+
+    elif onoff ==0: #turns off music
+        winsound.PlaySound("",winsound.SND_ASYNC)
+
 
 
 
