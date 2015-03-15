@@ -72,15 +72,16 @@ class Elevator:
     #todo, 3 for example , the list then searches element 4 but becuase an entry has been removed. the  orginal number 4 is now item 3
     # todo and the list is now searching new element 4 and orginal numnber 5. so orginal number 4 is not being asked does he want to enter
     def checkElevator(self):
-        for customer in self.customers_inside_elevators: #for every customer in the lift.
+        for customer in self.customers_inside_elevators[:]: #for every customer in the lift.  # [:] makes it go through a copy so fixes to-do above
             if customer.destination == self.location: #ask them do they want to get out.
                 #move customer in customers served.
                 self.customers_served.append(customer)
                 self.customers_inside_elevators.remove(customer)
 
     def checkCustometers(self):
-        for customer in self.customers_waiting:
-            if customer.Source == self.location: #if the customer is wants to get on at this floor,
+
+        for customer in self.customers_waiting[:]:# [:]make it go through a copy so fixes to-do above
+            if customer.Source == self.location: #if the customer  wants to get on at this floor,
                 self.customers_inside_elevators.append(customer) #place customer into elevator
                 self.customers_waiting.remove(customer) #The customer isent waiting anymore
 
