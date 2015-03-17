@@ -3,6 +3,8 @@ import random # Random locations start
 import string
 import winsound # used to play Elevator music
 import time  # use for sleep command
+import pygame
+from pygame.locals import *
 
 """ OOP -Assignement2
     Autor = Barry Burke
@@ -11,15 +13,56 @@ import time  # use for sleep command
     Name of Assignment = Elevator Simulator
      """
 #################################################################################################
-##     PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.     ##
+#     PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.       #
 #################################################################################################
 
 # todo play elevator music when lift opens
 # Right so 3 classes
 # building  Elevator  and customer
 # todo no:1 make 3 classes called building , a customer and elevator and init
-# todo if time; have a assign a weight to each person. and set a max weight to the lift. refuse customers
-# todo if there are too many people in the lift
+
+# todo if time; have a assign a weight to each person. and set a max weight to the lift. refuse customers...
+# todo  if there are too many people in the lift
+
+# todo do 4th class to make lift in pygame
+
+class GUI:
+    def __init__(self,No_of_floors,No_of_Customers):
+        self.No_of_floors = No_of_floors
+        self.No_of_Customers = No_of_Customers
+
+        self.white = (255,255,255)
+        self.black = (0,0,0)
+        self.red = (255,0,0)
+
+        self.size = (1280,720)
+        self.screen = pygame.display.set_mode(self.size)
+        pygame.display.set_caption ('Elevator Simulator')
+        self.ABuilding =Building(self.No_of_floors, self.No_of_Customers)  # creates a building
+        gameExit = False
+        self.gameExit = gameExit
+        self.loop()
+        self.img = pygame.image.load('elevator.jpeg')
+        self.imgx =10
+        self.imgy=10
+    def loop(self):
+        while not self.gameExit:
+            self.screen.blit(self.img,(self.imgx,self.imgy))
+            self.display()
+            self.ABuilding.AElevator.Elevatormainloop() # In The building that
+            #Class GUI made. go to AElevator that building created and run it main loop
+
+    def display(self):
+        pass
+        return pygame.display.update()
+
+
+
+
+
+
+
+
 
 class Building:
     # class recives the amount of floors in the building and the amount of customers
@@ -32,11 +75,8 @@ class Building:
             aCustomer = Customer(self.floors)
             self.customers_waiting.append(aCustomer)
         # create an elevator
-        AElevator = Elevator(self.floors, self.customers_waiting, self.customers_served)
-        AElevator.Elevatormainloop()
-        # def __repr__(self):
-        #     #this will print out building with elevator..
-        #     pass
+        self.AElevator = Elevator(self.floors, self.customers_waiting, self.customers_served)
+        #self.
 
 
 class Elevator:
@@ -47,8 +87,9 @@ class Elevator:
         self.customers_inside_elevators = []
         self.customers_waiting = customers_waiting
         self.customers_served = customers_served
-        self.Max_Mass = Max_mass # Set a maxium mass to 500Kg
+        self.Max_Mass = Max_mass # Set a maximum mass to 500Kg
         self.Mass =0
+
     def __repr__(self):
         self.__str__()
 
@@ -144,6 +185,9 @@ class Elevator:
             """.format(self.location, self.Max_Mass, self.Mass , len(self.customers_inside_elevators),len(self.customers_waiting), len(self.customers_served))
             print(self.end)
 
+            pygame.quit() #end pygame
+            quit() #ends python
+
 class Customer:
     def __init__(self, floor):
         self.Source = random.randint(0, floor)
@@ -160,10 +204,9 @@ def main():
     # main will be used to pass vars to classes
     No_of_floors = int(input("How many floors are in the building"))
     No_of_Customers = int(input("How many Customers are in the building"))
-
     Elevatormusic(1)  # 1 turns music on
+    GUI(No_of_floors,No_of_Customers)
 
-    Building(No_of_floors, No_of_Customers)  # creates a building
 
 
 # defines a fxn that will turn on or off the music
