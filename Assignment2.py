@@ -23,8 +23,9 @@ import pygame
 # todo if time; have a assign a weight to each person. and set a max weight to the lift. refuse customers...
 # todo  if there are too many people in the lift
 
-# todo do 4th class to make lift in pygame
-
+#todo , error check on user
+#todo allow music to be stoped
+#todo Do doc string documenation on each class
 class Building:
     # class recives the amount of floors in the building and the amount of customers
     def __init__(self, floors, no_of_customers):
