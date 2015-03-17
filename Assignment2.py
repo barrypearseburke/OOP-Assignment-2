@@ -4,7 +4,6 @@ import string
 import winsound # used to play Elevator music
 import time  # use for sleep command
 import pygame
-from pygame.locals import *
 
 """ OOP -Assignement2
     Autor = Barry Burke
@@ -26,44 +25,6 @@ from pygame.locals import *
 
 # todo do 4th class to make lift in pygame
 
-class GUI:
-    def __init__(self,No_of_floors,No_of_Customers):
-        self.No_of_floors = No_of_floors
-        self.No_of_Customers = No_of_Customers
-
-        self.white = (255,255,255)
-        self.black = (0,0,0)
-        self.red = (255,0,0)
-
-        self.size = (1280,720)
-        self.screen = pygame.display.set_mode(self.size)
-        pygame.display.set_caption ('Elevator Simulator')
-        self.ABuilding =Building(self.No_of_floors, self.No_of_Customers)  # creates a building
-        gameExit = False
-        self.gameExit = gameExit
-        self.loop()
-        self.img = pygame.image.load('elevator.jpeg')
-        self.imgx =10
-        self.imgy=10
-    def loop(self):
-        while not self.gameExit:
-            self.screen.blit(self.img,(self.imgx,self.imgy))
-            self.display()
-            self.ABuilding.AElevator.Elevatormainloop() # In The building that
-            #Class GUI made. go to AElevator that building created and run it main loop
-
-    def display(self):
-        pass
-        return pygame.display.update()
-
-
-
-
-
-
-
-
-
 class Building:
     # class recives the amount of floors in the building and the amount of customers
     def __init__(self, floors, no_of_customers):
@@ -76,7 +37,7 @@ class Building:
             self.customers_waiting.append(aCustomer)
         # create an elevator
         self.AElevator = Elevator(self.floors, self.customers_waiting, self.customers_served)
-        #self.
+        self.AElevator.Elevatormainloop()
 
 
 class Elevator:
@@ -142,7 +103,9 @@ class Elevator:
 
 
         # go up or down a floor
-        if self.direction == "up" and self.location < self.floors:  # if we are going up and were not on the top floor
+        if len(self.customers_waiting) == 0 and len(self.customers_inside_elevators) == 0:
+            self.checkend() # if nobody left , end program
+        elif self.direction == "up" and self.location < self.floors:  # if we are going up and were not on the top floor
             self.location += 1  # go up
 
         elif self.direction == "up" and self.location == self.floors:  # if we are going up but were on the top floor
@@ -185,9 +148,6 @@ class Elevator:
             """.format(self.location, self.Max_Mass, self.Mass , len(self.customers_inside_elevators),len(self.customers_waiting), len(self.customers_served))
             print(self.end)
 
-            pygame.quit() #end pygame
-            quit() #ends python
-
 class Customer:
     def __init__(self, floor):
         self.Source = random.randint(0, floor)
@@ -205,8 +165,8 @@ def main():
     No_of_floors = int(input("How many floors are in the building"))
     No_of_Customers = int(input("How many Customers are in the building"))
     Elevatormusic(1)  # 1 turns music on
-    GUI(No_of_floors,No_of_Customers)
 
+    Building(No_of_floors, No_of_Customers)  # creates a building
 
 
 # defines a fxn that will turn on or off the music
