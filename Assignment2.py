@@ -172,7 +172,7 @@ def Elevatormusic(onoff):  # pass 1 for turn music on , 0 for off
     if onoff == 1:
         try:
             winsound.PlaySound("Elevator Music.wav", winsound.SND_ASYNC)  # turns music on
-        except Error as e:
+        except ValueError as e:
             print(e)
 
     elif onoff == 0:  # turns off music
