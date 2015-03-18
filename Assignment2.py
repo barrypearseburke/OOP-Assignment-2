@@ -3,6 +3,7 @@ import random # Random locations start
 import string
 import winsound # used to play Elevator music
 import time  # use for sleep command
+import pygame
 
 """ OOP -Assignement2
     Autor = Barry Burke
@@ -11,16 +12,20 @@ import time  # use for sleep command
     Name of Assignment = Elevator Simulator
      """
 #################################################################################################
-##     PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.     ##
+#     PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.       #
 #################################################################################################
 
 # todo play elevator music when lift opens
 # Right so 3 classes
 # building  Elevator  and customer
 # todo no:1 make 3 classes called building , a customer and elevator and init
-# todo if time; have a assign a weight to each person. and set a max weight to the lift. refuse customers
-# todo if there are too many people in the lift
 
+# todo if time; have a assign a weight to each person. and set a max weight to the lift. refuse customers...
+# todo  if there are too many people in the lift
+
+#todo , error check on user
+#todo allow music to be stoped
+#todo Do doc string documenation on each class
 class Building:
     # class recives the amount of floors in the building and the amount of customers
     def __init__(self, floors, no_of_customers):
@@ -32,11 +37,8 @@ class Building:
             aCustomer = Customer(self.floors)
             self.customers_waiting.append(aCustomer)
         # create an elevator
-        AElevator = Elevator(self.floors, self.customers_waiting, self.customers_served)
-        AElevator.Elevatormainloop()
-        # def __repr__(self):
-        #     #this will print out building with elevator..
-        #     pass
+        self.AElevator = Elevator(self.floors, self.customers_waiting, self.customers_served)
+        self.AElevator.Elevatormainloop()
 
 
 class Elevator:
@@ -47,8 +49,9 @@ class Elevator:
         self.customers_inside_elevators = []
         self.customers_waiting = customers_waiting
         self.customers_served = customers_served
-        self.Max_Mass = Max_mass # Set a maxium mass to 500Kg
+        self.Max_Mass = Max_mass # Set a maximum mass to 500Kg
         self.Mass =0
+
     def __repr__(self):
         self.__str__()
 
@@ -101,7 +104,9 @@ class Elevator:
 
 
         # go up or down a floor
-        if self.direction == "up" and self.location < self.floors:  # if we are going up and were not on the top floor
+        if len(self.customers_waiting) == 0 and len(self.customers_inside_elevators) == 0:
+            self.checkend() # if nobody left , end program
+        elif self.direction == "up" and self.location < self.floors:  # if we are going up and were not on the top floor
             self.location += 1  # go up
 
         elif self.direction == "up" and self.location == self.floors:  # if we are going up but were on the top floor
@@ -160,7 +165,6 @@ def main():
     # main will be used to pass vars to classes
     No_of_floors = int(input("How many floors are in the building"))
     No_of_Customers = int(input("How many Customers are in the building"))
-
     Elevatormusic(1)  # 1 turns music on
 
     Building(No_of_floors, No_of_Customers)  # creates a building
