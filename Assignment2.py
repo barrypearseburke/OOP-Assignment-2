@@ -160,10 +160,22 @@ class Customer:
 
 def main():
     print("Out of order, Travel at ones own risk")
+    breakvalue =1
+    while  breakvalue ==1: ## makes sure user enters real numbers and not letters
+        # main will be used to pass vars to classes
+        try:
+            No_of_floors = int(input("How many floors are in the building"))
+        except ValueError:
+            print("not a number")
+            continue
+        try:
+            No_of_Customers = int(input("How many Customers are in the building"))
+        except ValueError:
+            print("not a number")
+            continue
+        break
 
-    # main will be used to pass vars to classes
-    No_of_floors = int(input("How many floors are in the building"))
-    No_of_Customers = int(input("How many Customers are in the building"))
+
     Elevatormusic(1)  # 1 turns music on
 
     Building(No_of_floors, No_of_Customers)  # creates a building
