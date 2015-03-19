@@ -3,7 +3,7 @@ import random # Random locations start
 import string
 import winsound # used to play Elevator music
 import time  # use for sleep command
-
+import platform # so music only plays on windows
 """ OOP -Assignement2
     Autor = Barry Burke
     Student No = C13427078
@@ -172,14 +172,16 @@ def main():
 # defines a fxn that will turn on or off the music
 def Elevatormusic(onoff):  # pass 1 for turn music on , 0 for off
     # this code plays elevator music in the background of the project
-    if onoff == 1:
-        try:
-            winsound.PlaySound("Elevator Music.wav", winsound.SND_ASYNC)  # turns music on
-        except ValueError as e:
-            print(e)
+    #detech os
+    if (platform.system()) == "Windows":
+        if onoff == 1:
+            try:
+                winsound.PlaySound("Elevator Music.wav", winsound.SND_ASYNC)  # turns music on
+            except ValueError as e:
+                print(e)
 
-    elif onoff == 0:  # turns off music
-        winsound.PlaySound("", winsound.SND_ASYNC)
+        elif onoff == 0:  # turns off music
+            winsound.PlaySound("", winsound.SND_ASYNC)
 
 
 if __name__ == "__main__":
