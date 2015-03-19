@@ -3,7 +3,6 @@ import random # Random locations start
 import string
 import winsound # used to play Elevator music
 import time  # use for sleep command
-import pygame
 
 """ OOP -Assignement2
     Autor = Barry Burke
@@ -122,8 +121,8 @@ class Elevator:
 
         self.updatetoscreen = """
         The Elevators is on floor {}
-        The Elevators Max_Mass is {}
-        The Elevators Mass is {}
+        The Elevators Max_Mass is {} Kg
+        The Elevators Mass is {} Kg
         There are {} people in the lift
         There are {} people waiting
         There are  {} people already served
@@ -141,8 +140,8 @@ class Elevator:
             print("All Customers have been Served. Lift Status:")
             self.end = """
             The Lift is on floor {}
-            The Elevators Max_Mass is {}
-            The Elevators Mass is {}
+            The Elevators Max_Mass is {} Kg
+            The Elevators Mass is {} Kg
             There are {} people in the lift
             There are {} people waiting
             There are  {} people served
