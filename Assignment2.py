@@ -9,7 +9,7 @@ import platform  # so music only plays on windows
     Autor = Barry Burke
     Student No = C13427078
     Date Started = 26/2/15
-    Date Finished =19/3/15
+    Date Submitted  = 22/3/15
     Name of Assignment = Elevator Simulator
 
     This Elevator Simulator features Elevator Music , however this will only work on a windows PC.
