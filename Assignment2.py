@@ -1,9 +1,10 @@
 __author__ = 'Barry'
-import random # Random locations start
-import string
-import winsound # used to play Elevator music
+import random  # Random locations start
+import string  # general sting formating
+import winsound  # used to play Elevator music
 import time  # use for sleep command
-import platform # so music only plays on windows
+import platform  # so music only plays on windows
+
 """ OOP -Assignement2
     Autor = Barry Burke
     Student No = C13427078
@@ -13,9 +14,9 @@ import platform # so music only plays on windows
 
     This Elevator Simulator features Elevator Music , however this will only work on a windows PC.
      """
-#################################################################################################
-#     PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.       #
-#################################################################################################
+#############################################################################################
+# PLEASE ENSURE THAT FILE "Elevator Music.wav" is in the same directory as this file.       #
+#############################################################################################
 
 # todo play elevator music when lift opens ☑
 # Right so 3 classes
@@ -25,9 +26,9 @@ import platform # so music only plays on windows
 # todo if time; have a assign a weight to each person. and set a max weight to the lift. refuse customers...
 # todo  if there are too many people in the lift☑
 
-#todo , error check on user ☑
+# todo , error check on user ☑
 
-#todo Do doc string documenation on each class ☑
+# todo Do doc string documenation on each class ☑
 class Building:
     """
     This Class Building Takes in the number of floors and the number of customers.
@@ -58,9 +59,10 @@ class Elevator:
         if there is nobody in the elevator , the program may be ready to end so it check to see if there is people waiting
         in the customer waiting class.
     """
-    def __init__(self, floors, customers_waiting, customers_served,Max_mass =500,sleeptime=2):
-    # allows a max mass to be sent, but if nothing, set a standard size of 500kg
-    # sleep time allows the user to read output ,2 seconds by default , can be increase or decrease if chosen if class is manually called
+
+    def __init__(self, floors, customers_waiting, customers_served, Max_mass=500, sleeptime=2):
+        # allows a max mass to be sent, but if nothing, set a standard size of 500kg
+        # sleep time allows the user to read output ,2 seconds by default , can be increase or decrease if chosen if class is manually called
         """
         inits values and makes a customers inside elevator list
         """
@@ -71,9 +73,9 @@ class Elevator:
         self.customers_inside_elevators = []
         self.customers_waiting = customers_waiting
         self.customers_served = customers_served
-        self.Max_Mass = Max_mass # Set a maximum mass to 500Kg
+        self.Max_Mass = Max_mass  # Set a maximum mass to 500Kg
         self.Mass = 0
-        self.efficiency = 0   # after each floor is visited , one is added to a counter
+        self.efficiency = 0  # after each floor is visited , one is added to a counter
 
     def __repr__(self):
         """
@@ -114,7 +116,8 @@ class Elevator:
         """
         check to see if there are people in the elevator who want to get out at this floor
         """
-        for customer in self.customers_inside_elevators[:]: # for every customer in the lift.  # [:] makes it go through a copy so fixes to-do above
+        for customer in self.customers_inside_elevators[:]:
+            # for every customer in the lift.  # [:] makes it go through a copy so fixes to-do above
             if customer.destination == self.location:  # ask them do they want to get out.
                 # move customer in customers served.
                 self.customers_served.append(customer)
@@ -128,36 +131,36 @@ class Elevator:
 
         for customer in self.customers_waiting[:]:  # [:]make it go through a copy so fixes to-do above
             if self.Mass + customer.Mass > self.Max_Mass:
-                continue # If by adding the customer to the it would cause the lift to exceed max mass , skip them
+                continue  # If by adding the customer to the it would cause the lift to exceed max mass , skip them
             elif customer.Source == self.location:  # if the customer  wants to get on at this floor,
                 self.customers_inside_elevators.append(customer)  # place customer into elevator
                 self.customers_waiting.remove(customer)  # The customer isent waiting anymore
-                self.Mass = self.Mass +customer.Mass
+                self.Mass = self.Mass + customer.Mass
 
 
         # go up or down a floor
         if len(self.customers_waiting) == 0 and len(self.customers_inside_elevators) == 0:
-            self.checkend() # if nobody left , end program
+            self.checkend()  # if nobody left , end program
         elif self.direction == "up" and self.location < self.floors:  # if we are going up and were not on the top floor
             self.location += 1  # go up
-            self.efficiency += 1 # add one to counter
+            self.efficiency += 1  # add one to counter
 
 
         elif self.direction == "up" and self.location == self.floors:  # if we are going up but were on the top floor
             self.direction = "down"  # we decide to go back down
             self.location += -1  # we go down by 1 floor.
-            self.efficiency +=1 # add one to counter
+            self.efficiency += 1  # add one to counter
 
 
         elif self.direction == "down" and self.location > 0:  # if we are going down and we are not on the ground floor
             self.location += -1  # go down
-            self.efficiency +=1 # add one to counter
+            self.efficiency += 1  # add one to counter
 
 
         elif self.direction == "down" and self.location == 0:  # if we are going down , but were on floor 0
             self.direction = "up"  # we go up
             self.location += 1  # we  go up by 1 floor.
-            self.efficiency +=1 # add one to counter
+            self.efficiency += 1  # add one to counter
 
     def __str__(self):
 
@@ -168,11 +171,12 @@ class Elevator:
         The Elevators is on floor {}
         The Elevators Max_Mass is {} Kg
         The Elevators Mass is {} Kg
-        There are {} people in the lift
+        There are {} people in the Elevator
         There are {} people waiting
         There are  {} people already served
         Elevator doors are now opening
-        """.format(self.location,self.Max_Mass ,self.Mass,len(self.customers_inside_elevators),len(self.customers_waiting), len(self.customers_served))
+        """.format(self.location, self.Max_Mass, self.Mass, len(self.customers_inside_elevators),
+                   len(self.customers_waiting), len(self.customers_served))
         return self.updatetoscreen
 
     def checkend(self):
@@ -189,24 +193,27 @@ class Elevator:
             The Lift is on floor {}
             The Elevators Max_Mass is {} Kg
             The Elevators Mass is {} Kg
-            There are {} people in the lift
+            There are {} people in the Elevator
             There are {} people waiting
             There are  {} people served
 
             The Elevator Visited {} floors
-            """.format(self.location, self.Max_Mass, self.Mass , len(self.customers_inside_elevators),len(self.customers_waiting), len(self.customers_served), self.efficiency)
+            """.format(self.location, self.Max_Mass, self.Mass, len(self.customers_inside_elevators),
+                       len(self.customers_waiting), len(self.customers_served), self.efficiency)
             print(self.end)
+
 
 class Customer:
     """customer class - Assigns each customer a random dest floor and start floor . Also sets a mass
         between 50 and 80 Kgs"""
+
     def __init__(self, floor):
         """
         assigns each value to vars
         """
         self.Source = random.randint(0, floor)
         self.destination = random.randint(0, floor)
-        self.Mass = random.randint(50,80)  # selects a random weight for the customer between 50 and 100kg
+        self.Mass = random.randint(50, 80)  # selects a random weight for the customer between 50 and 100kg
         while self.Source == self.destination:
             self.Source = random.randint(0, floor)
             self.destination = random.randint(0, floor)
@@ -217,9 +224,10 @@ def main():
     asks the user to enter the number of floors and customers wanted for the sim. error checks their answers . Calles
     to put on elevator music which runs in the background and calls to creates a building .
     """
+    print("Welcome to ELEVATOR SIMULATOR")
     print("Out of order, Travel at ones own risk")
-    breakvalue =1
-    while  breakvalue ==1: ## makes sure user enters real numbers and not letters
+    breakvalue = 1
+    while breakvalue == 1:  # makes sure user enters real numbers and not letters
         # main will be used to pass vars to classes
         try:
             No_of_floors = int(input("How many floors are in the building"))
@@ -234,14 +242,13 @@ def main():
             continue
         break
 
-
-    Elevatormusic()  # 1 turns music on
+    Elevatormusic()  # turns music on
 
     Building(No_of_floors, No_of_Customers)  # creates a building
 
 
-# defines a fxn that will turn on or off the music
-def Elevatormusic(onoff =1 ):  # pass 1 for turn music on , 0 for off
+# defines a fxn that will turn on the music
+def Elevatormusic(onoff=1):  # pass 1 for turn music on
     """ This method checks to see if you are running windows os If you are it attempts to play elevator music
     so to fully simulate an elevator. This only runs for windows os and if this detects any other os , it simple wont
     play.
@@ -259,3 +266,5 @@ def Elevatormusic(onoff =1 ):  # pass 1 for turn music on , 0 for off
 # if the program is run as one then main is run.
 if __name__ == "__main__":
     main()
+    # if the program runs by running the assignment2.py file , main will run. IF inported only the parts the controller
+    # calls will run
