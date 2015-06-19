@@ -5,3 +5,6 @@ simulate an elevator.
 See flowchart called assignment2.png 
 
 Date due - 27th of march 2015 @5pm
+
+
+Grade :  100%
